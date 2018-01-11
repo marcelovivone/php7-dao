@@ -19,9 +19,23 @@ require_once("config.php");
 //$lista = Usuario::search("l");
 //echo json_encode($lista);
 
-//exibe usuário por login e senha
-$usuario = new Usuario();
-$usuario->login("Tila", "02468");
-echo $usuario;
+// exibe usuário por login e senha
+//$usuario = new Usuario();
+//$usuario->login("Tila", "02468");
+//echo $usuario;
+
+//inclui usuário (sem o construtor)
+//$aluno = new Usuario();
+//$aluno->setDsclogin("Donna");
+//$aluno->setDscsenha("09876");
+//$aluno->insert();
+//echo $aluno;
+
+//inclui usuário (com o construtor)
+$aluno = new Usuario("Donna", "09876");
+
+$aluno->insert();
+
+echo $aluno;
 
 ?>

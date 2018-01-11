@@ -46,12 +46,7 @@ class Usuario {
 		));
 
 		if (count($result[0]) > 0) {
-			$row = $result[0];
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setDsclogin($row['dsclogin']);
-			$this->setDscsenha($row['dscsenha']);
-			$this->setDttcadastro(new Datetime($row['dttcadastro']));
+			$this->setData($result[0]);
 		}
 
 	}
@@ -65,12 +60,7 @@ class Usuario {
 		));
 
 		if (count($result[0]) > 0) {
-			$row = $result[0];
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setDsclogin($row['dsclogin']);
-			$this->setDscsenha($row['dscsenha']);
-			$this->setDttcadastro(new Datetime($row['dttcadastro']));
+			$this->setData($result[0]);
 		}else{
 			throw new Exception("Login e/ou senha inválidos");
 		}
@@ -92,6 +82,32 @@ class Usuario {
 		$sql = new Sql();
 
 		return $sql->select("SELECT * FROM usuario ORDER BY dsclogin");
+	}
+
+	public function insert() {
+		$sql = new Sql();
+
+		$result = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+			":LOGIN"=>$this->getDsclogin(),
+			":PASSWORD"=>$this->getDscsenha()
+		));
+	
+		if (count($result[0]) > 0) {
+			$this->setData($result[0]);
+		}
+
+	}
+
+	public function setData($data) {
+		$this->setIdusuario($data['idusuario']);
+		$this->setDsclogin($data['dsclogin']);
+		$this->setDscsenha($data['dscsenha']);
+		$this->setDttcadastro(new Datetime($data['dttcadastro']));
+	}
+
+	public function __constructor($login = "", $password = ""){
+		$this->setDsclogin($login);
+		$this->setDscsenha($password);
 	}
 
 	public function __toString() {
