@@ -98,6 +98,20 @@ class Usuario {
 
 	}
 
+	public function update($login, $password) {
+		$this->setDsclogin($login);
+		$this->setDscsenha($password);
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE usuario SET dsclogin = :LOGIN, dscsenha = :PASSWORD WHERE idusuario = :ID", array(
+			":LOGIN"=>$this->getDsclogin(),
+			":PASSWORD"=>$this->getDscsenha(),
+			":ID"=>$this->getIdusuario()
+		));
+	
+	}
+
 	public function setData($data) {
 		$this->setIdusuario($data['idusuario']);
 		$this->setDsclogin($data['dsclogin']);
@@ -105,7 +119,7 @@ class Usuario {
 		$this->setDttcadastro(new Datetime($data['dttcadastro']));
 	}
 
-	public function __constructor($login = "", $password = ""){
+	public function __construct($login = "", $password = "") {
 		$this->setDsclogin($login);
 		$this->setDscsenha($password);
 	}
