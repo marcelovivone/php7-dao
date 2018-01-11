@@ -112,6 +112,19 @@ class Usuario {
 	
 	}
 
+	public function delete() {
+		$sql = new Sql();
+
+		$sql->query("DELETE FROM usuario WHERE idusuario = :ID", array(
+			":ID"=>$this->getIdusuario()
+		));
+	
+		$this->setIdusuario(0);
+		$this->setDsclogin("");
+		$this->setDscsenha("");
+		$this->setDttcadastro(new Datetime());
+	}
+
 	public function setData($data) {
 		$this->setIdusuario($data['idusuario']);
 		$this->setDsclogin($data['dsclogin']);

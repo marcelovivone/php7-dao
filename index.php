@@ -50,13 +50,18 @@ $usuario->insert();
 echo $usuario;
 */
 
+/*
 // atualiza usuário
 $usuario = new Usuario();
-
 $usuario->loadById(7);
-
 $usuario->update("Paco", "08642");
+echo $usuario;
+*/
 
+// exclui usuário
+$usuario = new Usuario();
+$usuario->loadById(8);
+$usuario->delete();
 echo $usuario;
 
 ?>
